@@ -24,12 +24,14 @@ if [[ res -eq 0 ]]; then
     exit 1
 fi
 
+echo "CS course!"
+
 course_num=$(cat $tmp | grep "89.*")
 course_code=${course_num%-*}
 course_group=${course_num#*-}
 
 
-echo $url > "./db/$course_code-$course_group-$url_num"
-cat $tmp >> "./db/$course_code-$course_group-$url_num"
+echo $url > "./db/$course_code-$course_group"
+cat $tmp >> "./db/$course_code-$course_group"
 rm $tmp
 exit 0

@@ -3,27 +3,24 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 */package cmd
 
 import (
+	"bufio"
 	"fmt"
+	"os"
 	"os/exec"
-	"strconv"
 	"sync"
 
 	"github.com/spf13/cobra"
 )
 
 const (
-	THREADS   = 2000
-	ADDRESSES = 25
+	THREADS = 100 
 )
 
-func fetchData(url string, base int) {
-	fmt.Println(base)
-	for i := base; i < base+ADDRESSES; i++ {
-		url = "https://shoham.biu.ac.il/BiuCoursesViewer/ENCourseDetails.aspx?lid=" + strconv.Itoa(
-			i,
-		)
+func fetchData(lids []string) {
+	for _, lid := range lids {
+		url := "https://shoham.biu.ac.il/BiuCoursesViewer/ENCourseDetails.aspx?lid=" + lid
 		fmt.Printf("trying %s\n", url)
-		cmd := exec.Command("/home/yaron/projects/shoam_bash/course_info", url)
+		cmd := exec.Command("/home/yaron/projects/shoam/course_info", url)
 		err := cmd.Run()
 		if err == nil {
 			fmt.Println("course added")
@@ -49,20 +46,38 @@ var generateDbCmd = &cobra.Command{
 
 	Run: func(cmd *cobra.Command, args []string) {
 		var wg sync.WaitGroup
-		base := 760000
-
+		lids := getLids()
 		wg.Add(THREADS)
-		url := "https://shoham.biu.ac.il/BiuCoursesViewer/ENCourseDetails.aspx?lid=" + strconv.Itoa(
-			base,
-		)
 
-		for i := 0; i < THREADS; i++ {
-			go fetchData(url, base)
-			base = base + ADDRESSES
+		addresses := len(lids) / THREADS
+		base := 0
+
+		for i := 0; i < THREADS-1; i++ {
+			go fetchData(lids[base : base+addresses])
+			base = base + addresses
 		}
+
+		go fetchData(lids[base:])
 
 		wg.Wait()
 	},
+}
+
+func getLids() []string {
+	file, err := os.Open("/home/yaron/projects/shoam/links/pages_ids")
+	if err != nil {
+		fmt.Println("error in reading the file")
+		fmt.Println(err)
+		return nil
+	}
+
+	lids := []string{}
+	scanner := bufio.NewScanner(file)
+
+	for scanner.Scan() {
+		lids = append(lids, scanner.Text())
+	}
+	return lids
 }
 
 func init() {

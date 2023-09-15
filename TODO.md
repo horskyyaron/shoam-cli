@@ -9,3 +9,5 @@ Commands:
     * mails
     * recitation stuff
     * etc...
+* given a file/stdin calculate total points.
+
