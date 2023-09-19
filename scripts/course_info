@@ -1,0 +1,43 @@
+#!/bin/bash
+#
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 [url]"
+  exit 1
+fi
+
+# Read and use the command-line arguments
+url="$1"
+url_num=${url#*lid=}
+
+temp=$(echo $RANDOM | md5sum |head -c 10; echo)
+tmp="tmp_$temp"
+
+DB_FOLDER="/home/yaron/projects/shoam/db"
+
+if [ ! -d $DB_FOLDER ]; then
+    mkdir $DB_FOLDER
+fi
+
+# getting course information
+curl $url | pup "td text{}" | grep -v "^$" | grep -v '^ *$' > $tmp
+
+
+# filtering a non CS department course
+res=$(cat ./$tmp | grep "Department of Computer Science" | wc -l)
+if [[ res -eq 0 ]]; then
+    echo "NO!" 
+    rm ./$tmp
+    exit 1
+fi
+
+echo "CS course!"
+
+course_num=$(cat $tmp | grep "89.*")
+course_code=${course_num%-*}
+course_group=${course_num#*-}
+
+
+echo $url > "$DB_FOLDER/$course_code-$course_group"
+cat $tmp >> "$DB_FOLDER/$course_code-$course_group"
+rm $tmp
+exit 0

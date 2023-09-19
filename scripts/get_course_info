@@ -1,0 +1,24 @@
+#!/bin/bash
+#
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 [course code] [group] "
+  exit 1
+fi
+
+# Read and use the command-line arguments
+course_num="$1"
+course_group="$2"
+
+if [[ $course_group -eq "" ]]; then
+    course_group="01"
+fi
+
+file=$(ls /home/yaron/projects/shoam/db | grep "$course_num-$course_group")
+
+if [[ $file -eq "" ]]; then
+    echo "wrong course or group number, please check your input again"
+    exit
+fi
+cat ./db/$file
+
+

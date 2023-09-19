@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+  echo "Usage: $0 '[search term]'"
+  exit 1
+fi
+
+DB_FOLDER="/home/yaron/projects/shoam/db"
+CACHE_FILE=$DB_FOLDER/courses_cache
+
+term=$1
+ 
+fast_access () {
+    touch tmp 
+
+    for f in $DB_FOLDER/* 
+    do
+        code=${f#*/db/}
+        code=${code%%-*}
+        name=$(cat $f | sed -n '/Name/{n;p;q;}')
+        echo $code, $name >> tmp 
+    done
+
+    cat tmp | sort | uniq > $CACHE_FILE 
+    rm tmp
+}
+
+if [ ! -e $CACHE_FILE ]; then
+    fast_access
+fi
+
+cat $CACHE_FILE | grep -i $term | awk -F',' '{printf "%-8s %s\n", $1, $2}' 
+
+
+
