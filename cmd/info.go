@@ -5,6 +5,7 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 import (
 	"fmt"
 	"os/exec"
+	"shoam/utils"
 
 	"github.com/spf13/cobra"
 )
@@ -22,7 +23,7 @@ var infoCmd = &cobra.Command{
 		course_code := args[0]
 		groupTerm, _ := cmd.Flags().GetString("group")
 		getInfoCommand := exec.Command(
-			"/home/yaron/projects/shoam/get_course_info",
+			utils.SCRIPTS_DIR + "/get_course_info",
 			course_code,
 			groupTerm,
 		)

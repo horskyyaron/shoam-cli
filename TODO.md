@@ -3,8 +3,9 @@
 
 
 # Commands:
-* info [course_name]/[course_code]   - gives information regarding a course.
 * calc:
+    * check if a course has a rec.
+    * fetch points from given course + group 
     * given a file/stdin of a list of courses -> return total points.
     * given a course code -> course points
 * tests:

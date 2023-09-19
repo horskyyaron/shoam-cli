@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Will check if a given course has a recitation.
+# it will print the reciation points to stdout,
+# if a course doesn't have a recitation (lecture only)
+# the program will print 0 to stdout.
+
+if [ $# -lt 1 ]; then
+    echo "Usage: $0 [course code]"
+    exit 1
+fi
+
+DB_FOLDER="/home/yaron/projects/shoam/db"
+CACHE_FILE=$DB_FOLDER/courses_cache
+
+course_code="$1"
+
+res=$(cat $CACHE_FILE | grep "$course_code")
+
+if [ "$res" = "" ]; then
+    echo "course not found"
+    exit 1
+fi
+
+
+lec_points=$(cat $DB_FOLDER/$course_code-01 | sed -n '/Credit(s)/{n;p;q;}')
+
+rec_points=0
+for f in $(ls -1 $DB_FOLDER | grep "$course_code"); do
+    res=$(cat $DB_FOLDER/$f | grep "Exercise")
+    if [ "$res" != "" ]; then
+        rec_points=$(cat $DB_FOLDER/$f | sed -n '/Credit(s)/{n;p;q;}')
+        break
+    fi
+done
+
+echo $(cat $CACHE_FILE | grep $course_code)
+echo "---------------------------------------"
+
+echo $lec_points, Lecture points
+echo $rec_points, Recitation points
+total=$(echo $lec_points + $rec_points | bc)
+echo $total, total

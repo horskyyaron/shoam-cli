@@ -8,6 +8,8 @@ import (
 	"os/exec"
 
 	"github.com/spf13/cobra"
+
+	"shoam/utils"
 )
 
 // searchCmd represents the search command
@@ -24,7 +26,7 @@ var searchCmd = &cobra.Command{
 		term := args[0]
 		// groupTerm, _ := cmd.Flags().GetString("group")
 		getInfoCommand := exec.Command(
-			"/home/yaron/projects/shoam/search",
+			utils.SCRIPTS_DIR+"/search",
 			term,
 		)
 		output, err := getInfoCommand.CombinedOutput()
