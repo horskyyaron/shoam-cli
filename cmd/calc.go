@@ -1,6 +1,5 @@
 /*
 Copyright © 2023 NAME HERE <EMAIL ADDRESS>
-
 */
 package cmd
 
@@ -12,17 +11,47 @@ import (
 
 // calcCmd represents the calc command
 var calcCmd = &cobra.Command{
-	Use:   "calc",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
-
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+	Use:   "calc <courses codes...>",
+	Short: "calculates total credit points for a list of courses",
+	Long: `Can be used in multiple ways:
+    1. shoam calc 89230 -> will return the credit for one course
+    2. shoam calc 89230 89220 -> will return the credit for two courses (add more as you wish)
+    3. shoam calc -f file -> will calculate total points for a file of a list of courses.
+        3.1 each line in the file should be a course code. do NOT include group number.
+        e.g.
+        file:
+        89230
+        89220
+    4. cat file | shoam calc -> should be in the same format as in the file usage.
+    `,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("calc called")
+		fileFlag, err := cmd.Flags().GetString("file")
+		if err != nil {
+			fmt.Println(err)
+		}
+		if fileFlag != "" {
+			handleFileFlag(fileFlag)
+			return
+		}
+		if len(args) == 0 {
+			handleStdin()
+			return
+		} else {
+			handleCoursesArgs(args)
+		}
 	},
+}
+
+func handleCoursesArgs(args []string) {
+	fmt.Printf("number of args %d\n", len(args))
+}
+
+func handleStdin() {
+	fmt.Printf("stdin\n")
+}
+
+func handleFileFlag(file string) {
+	fmt.Printf("file flag on, file name: %s\n", file)
 }
 
 func init() {
@@ -36,5 +65,5 @@ func init() {
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// calcCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	calcCmd.Flags().StringP("file", "f", "", "-f <course file>")
 }
