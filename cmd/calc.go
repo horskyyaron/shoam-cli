@@ -5,13 +5,17 @@ package cmd
 
 import (
 	"fmt"
+	"os/exec"
+	"strconv"
+	"strings"
 
 	"github.com/spf13/cobra"
+
+	"shoam/utils"
 )
 
-// calcCmd represents the calc command
 var calcCmd = &cobra.Command{
-	Use:   "calc <courses codes...>",
+	Use:   "calc <courses codes...> ",
 	Short: "calculates total credit points for a list of courses",
 	Long: `Can be used in multiple ways:
     1. shoam calc 89230 -> will return the credit for one course
@@ -25,32 +29,58 @@ var calcCmd = &cobra.Command{
     4. cat file | shoam calc -> should be in the same format as in the file usage.
     `,
 	Run: func(cmd *cobra.Command, args []string) {
+		verboseFlag, err := cmd.Flags().GetBool("verbose")
+		if err != nil {
+			fmt.Println(err)
+		}
 		fileFlag, err := cmd.Flags().GetString("file")
 		if err != nil {
 			fmt.Println(err)
 		}
 		if fileFlag != "" {
-			handleFileFlag(fileFlag)
+			handleFileFlag(fileFlag, verboseFlag)
 			return
 		}
 		if len(args) == 0 {
-			handleStdin()
+			handleStdin(verboseFlag)
 			return
 		} else {
-			handleCoursesArgs(args)
+			handleCoursesArgs(args, verboseFlag)
 		}
 	},
 }
 
-func handleCoursesArgs(args []string) {
-	fmt.Printf("number of args %d\n", len(args))
+func handleCoursesArgs(courses []string, verboseFlag bool) {
+	total := 0.0
+	var v string
+	if verboseFlag == true {
+		v = "true"
+	} else {
+		v = "false"
+	}
+	for _, c := range courses {
+		pointsCmd := exec.Command(utils.SCRIPTS_DIR+"/get_points", c, v)
+		points, err := pointsCmd.CombinedOutput()
+		if err != nil {
+			fmt.Println(err)
+		}
+		lines := strings.Split(string(points), "\n")
+		p_str := strings.Split(lines[len(lines)-2], ",")[0]
+		p, err := strconv.ParseFloat(p_str, 8)
+		total += p
+		// fmt.Println(p)
+		if verboseFlag == true {
+			fmt.Println(string(points))
+		}
+	}
+	fmt.Printf("total points (%d courses): %.2f\n", len(courses), total)
 }
 
-func handleStdin() {
+func handleStdin(verboseFlag bool) {
 	fmt.Printf("stdin\n")
 }
 
-func handleFileFlag(file string) {
+func handleFileFlag(file string, verboseFlag bool) {
 	fmt.Printf("file flag on, file name: %s\n", file)
 }
 
@@ -66,4 +96,5 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	calcCmd.Flags().StringP("file", "f", "", "-f <course file>")
+	calcCmd.Flags().BoolP("verbose", "v", false, "verbose output")
 }

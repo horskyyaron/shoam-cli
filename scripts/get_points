@@ -14,6 +14,7 @@ DB_FOLDER="/home/yaron/projects/shoam/db"
 CACHE_FILE=$DB_FOLDER/courses_cache
 
 course_code="$1"
+verbose="$2"
 
 res=$(cat $CACHE_FILE | grep "$course_code")
 
@@ -34,10 +35,15 @@ for f in $(ls -1 $DB_FOLDER | grep "$course_code"); do
     fi
 done
 
+total=$(echo $lec_points + $rec_points | bc)
+if [ "$verbose" = "false" ]; then
+    echo $total
+    exit 0
+fi
+
 echo $(cat $CACHE_FILE | grep $course_code)
 echo "---------------------------------------"
 
 echo $lec_points, Lecture points
 echo $rec_points, Recitation points
-total=$(echo $lec_points + $rec_points | bc)
 echo $total, total
