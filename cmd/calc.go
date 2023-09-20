@@ -4,7 +4,10 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 package cmd
 
 import (
+	"bufio"
 	"fmt"
+	"log"
+	"os"
 	"os/exec"
 	"strconv"
 	"strings"
@@ -77,11 +80,77 @@ func handleCoursesArgs(courses []string, verboseFlag bool) {
 }
 
 func handleStdin(verboseFlag bool) {
-	fmt.Printf("stdin\n")
+	total := 0.0
+	total_courses := 0
+	var v string
+	if verboseFlag == true {
+		v = "true"
+	} else {
+		v = "false"
+	}
+
+	// Create a scanner to read the file line by line
+	scanner := bufio.NewScanner(os.Stdin)
+
+	// Iterate through each line
+	for scanner.Scan() {
+		total_courses++
+		course := scanner.Text()
+		pointsCmd := exec.Command(utils.SCRIPTS_DIR+"/get_points", course, v)
+		points, err := pointsCmd.CombinedOutput()
+		if err != nil {
+			fmt.Println(err)
+		}
+		lines := strings.Split(string(points), "\n")
+		p_str := strings.Split(lines[len(lines)-2], ",")[0]
+		p, err := strconv.ParseFloat(p_str, 8)
+		total += p
+		// fmt.Println(p)
+		if verboseFlag == true {
+			fmt.Println(string(points))
+		}
+	}
+	fmt.Printf("total points (%d courses): %.2f\n", total_courses, total)
 }
 
 func handleFileFlag(file string, verboseFlag bool) {
-	fmt.Printf("file flag on, file name: %s\n", file)
+	total := 0.0
+	total_courses := 0
+	var v string
+	if verboseFlag == true {
+		v = "true"
+	} else {
+		v = "false"
+	}
+	// Open the file for reading
+	input, err := os.Open(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer input.Close()
+
+	// Create a scanner to read the file line by line
+	scanner := bufio.NewScanner(input)
+
+	// Iterate through each line
+	for scanner.Scan() {
+		total_courses++
+		course := scanner.Text()
+		pointsCmd := exec.Command(utils.SCRIPTS_DIR+"/get_points", course, v)
+		points, err := pointsCmd.CombinedOutput()
+		if err != nil {
+			fmt.Println(err)
+		}
+		lines := strings.Split(string(points), "\n")
+		p_str := strings.Split(lines[len(lines)-2], ",")[0]
+		p, err := strconv.ParseFloat(p_str, 8)
+		total += p
+		// fmt.Println(p)
+		if verboseFlag == true {
+			fmt.Println(string(points))
+		}
+	}
+	fmt.Printf("total points (%d courses): %.2f\n", total_courses, total)
 }
 
 func init() {
