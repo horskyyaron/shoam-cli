@@ -24,6 +24,31 @@ Mostly linux command line utilities, and some Go packages.
 
 ## Usage
 
+### help
+
+You can always use the built in helper to read about the different options.
+```
+$ shoam -h
+BIU courses cli tool for the savvy student
+
+Usage:
+  shoam [command]
+
+Available Commands:
+  calc        calculates total credit points for a list of courses
+  completion  Generate the autocompletion script for the specified shell
+  db          creates and updates the courses db based on the Shoam system of BIU
+  help        Help about any command
+  info        Get information for the input course
+  search      Searching for a course using a string pattern
+
+Flags:
+  -h, --help   help for shoam
+
+Use "shoam [command] --help" for more information about a command.
+```
+
+
 ### db
 
 ```
@@ -176,3 +201,4 @@ So I went to each of the 20 pages, copied the html of the page, from there creat
 file that includes all of the "lids". (the file inside "links" folder)
 
 when using db create, the program will curl each of these lids and get the information.
+
