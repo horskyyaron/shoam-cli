@@ -12,7 +12,9 @@ url_num=${url#*lid=}
 temp=$(echo $RANDOM | md5sum |head -c 10; echo)
 tmp="tmp_$temp"
 
-DB_FOLDER="/home/yaron/projects/shoam/db"
+
+SHOAM_FOLDER=$(echo $SHOAM_DIR)
+DB_FOLDER="$SHOAM_FOLDER/db"
 
 if [ ! -d $DB_FOLDER ]; then
     mkdir $DB_FOLDER

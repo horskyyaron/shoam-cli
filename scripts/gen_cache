@@ -1,6 +1,8 @@
 #!/bin/bash
 
-DB_FOLDER="/home/yaron/projects/shoam/db"
+
+SHOAM_FOLDER=$(echo $SHOAM_DIR)
+DB_FOLDER="$SHOAM_FOLDER/db"
 CACHE_FILE=$DB_FOLDER/courses_cache
 
 fast_access () {

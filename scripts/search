@@ -1,16 +1,16 @@
 #!/bin/bash
 
 if [ $# -lt 1 ]; then
-  echo "Usage: $0 '[search term]'"
-  exit 1
+    echo "Usage: $0 '[search term]'"
+    exit 1
 fi
 
-DB_FOLDER="/home/yaron/projects/shoam/db"
-CACHE_FILE=$DB_FOLDER/courses_cache
+SHOAM_FOLDER=$(echo $SHOAM_DIR)
+DB_FOLDER="$SHOAM_FOLDER/db"
+CACHE_FILE="$DB_FOLDER/courses_cache"
 
 term=$1
 
-cat $CACHE_FILE | grep -i $term | awk -F',' '{printf "%-8s %s\n", $1, $2}' 
-
+cat $CACHE_FILE | grep -i $term | awk -F',' '{printf "%-8s %s\n", $1, $2}'
 
 
