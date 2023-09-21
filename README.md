@@ -6,6 +6,16 @@ or even what is the course with the code 89220. (algo 1 of course, it cannot be 
 
 The process wasn't fast enough for me, thus "shoam" came to be!
 
+* [Features](#features)
+* [Requirements](#requirements)
+* [Usage](#usage)
+    * [help](#help)
+    * [db](#db)
+    * [search](#search)
+    * [info](#info)
+    * [calc](#calc)
+* [note on the data fetching](#note-on-the-data-fetching)
+
 ## Features
 
 * Search for a course by code, or by name. (can also use partial code/name)
@@ -127,7 +137,7 @@ Syllabus
 See Syllabus
 ```
 
-* working on better output in this section :).
+* working on better output for this command :).
 
 ## calc 
 
@@ -184,7 +194,7 @@ $ shoam calc
 total points (1 courses): 2.50
 ```
 
-### note on the data fetching
+### Note on the data fetching
 Each course page in the shoam system is of the form:
 ```
 https://shoham.biu.ac.il/BiuCoursesViewer/CourseDetails.aspx?lid=XXXXXX
