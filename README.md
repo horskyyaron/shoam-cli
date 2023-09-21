@@ -6,6 +6,8 @@ or even what is the course with the code 89220. (algo 1 of course, it cannot be 
 
 The process wasn't fast enough for me, thus "shoam" came to be!
 
+* [Installation](installation)
+* [Environment variables](#environment-variables)
 * [Features](#features)
 * [Requirements](#requirements)
 * [Usage](#usage)
@@ -15,6 +17,28 @@ The process wasn't fast enough for me, thus "shoam" came to be!
     * [info](#info)
     * [calc](#calc)
 * [note on the data fetching](#note-on-the-data-fetching)
+
+## Installation
+
+clone this repo.
+```
+git clone https://github.com/horskyyaron/shoam
+```
+
+## Environment variables
+
+For shoam to work, you will need to export an env variable: SHOAM_DIR with the value of the path
+where the this repo is cloned to.
+
+full set up:
+
+```
+git clone https://github.com/horskyyaron/shoam.git
+cd ./shoam
+export SHOAM_DIR=$(pwd) 
+```
+
+Add SHOAM_DIR to your zshrc/bashrc for shoam to persist.
 
 ## Features
 
