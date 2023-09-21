@@ -92,6 +92,9 @@ shoam db create
 this command will fetch the courses information from the Shoam system,
 it will store it locally.
 
+* (!) When you clone the repo, **the DB is already set in the repo**, if you want to re-fetch
+the data you can use this command to be sure the db is up to date.
+
 Explanation on how db create works is at the end of the readme. [click here](#note-on-the-data-fetching)
      
 
