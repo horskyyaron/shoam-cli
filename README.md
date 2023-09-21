@@ -1,15 +1,15 @@
 # CLI tool for the courses catalog.
 
-In BIU there is a courses catalog called "shoam".
+In BIU there is a course catalog called "shoam".
 Since I'm tired of going online each time I want to figure out something about a specific course,
 or even what is the course with the code 89220. (algo 1 of course, it cannot be forgotten).
 
-The process is not fast enough, thus "shoam" came to be!
+The process wasn't fast enough for me, thus "shoam" came to be!
 
 ## Features
 
-* search for a course code, or by name. (can also use partical code/name)
-* get course info. (tests, proffesor, credit points etc.. as shown on the course page on the shoam system)
+* Search for a course by code, or by name. (can also use partial code/name)
+* Get course info. (tests, professor, credit points etc.. as shown on the course page on the shoam system)
 * calculate credits (by Nakaz! not hours)
 
 ## Requirements
@@ -38,7 +38,7 @@ Explanation on how db create works is at the end of the readme. [click here](#no
 
 ### search
 
-* find all courses that has "calc" in their names.
+* find all courses that have "calc" in their names.
 ```
 $ shoam search "calc"
 89118     Introduction to Calculus I
@@ -168,11 +168,11 @@ https://shoham.biu.ac.il/BiuCoursesViewer/CourseDetails.aspx?lid=XXXXXX
 e.g. https://shoham.biu.ac.il/BiuCoursesViewer/CourseDetails.aspx?lid=764564 (Intro to computers)
 
 The current way of getting the "lids" part for every CS department course, is by going to the Shoam system,
-enter the current year + CS department, there will be around 20~ pages of lists of courses, each course entry with link to
+enter the current year + CS department, there will be around 20~ pages of lists of courses, each course entry with a link to
 the course page.
 
 The links are what we are interested in.
 So I went to each of the 20 pages, copied the html of the page, from there created a 
-file which includes all of the "lids". (the file inside "links" folder)
+file that includes all of the "lids". (the file inside "links" folder)
 
 when using db create, the program will curl each of these lids and get the information.
