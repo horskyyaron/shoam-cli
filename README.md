@@ -137,7 +137,7 @@ Exact Sciences
 Meeting Type
 Lecture
 Lecturer&#39;s Name
-Dr. Marina Kogan-Sadetsky
+*** Lecturer's Name ***
 Course Academic Hours
 Semester A - 3.00
 Credit(s)
