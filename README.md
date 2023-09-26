@@ -4,7 +4,7 @@ In BIU there is a course catalog called "shoam".
 Since I'm tired of going online each time I want to figure out something about a specific course,
 or even what is the course with the code 89220. (algo 1 of course, it cannot be forgotten).
 
-The process wasn't fast enough for me, thus "shoam" came to be!
+The process wasn't fast enough for me, thus "shoam-cli" came to be!
 
 * [Installation](installation)
 * [Environment variables](#environment-variables)
@@ -22,23 +22,23 @@ The process wasn't fast enough for me, thus "shoam" came to be!
 
 clone this repo.
 ```
-git clone https://github.com/horskyyaron/shoam
+git clone https://github.com/horskyyaron/shoam-cli
 ```
 
 ## Environment variables
 
-For shoam to work, you will need to export an env variable: SHOAM_DIR with the value of the path
+For shoam-cli to work, you will need to export an env variable: SHOAM_DIR with the value of the path
 where the this repo is cloned to.
 
 full set up:
 
 ```
-git clone https://github.com/horskyyaron/shoam.git
-cd ./shoam
+git clone https://github.com/horskyyaron/shoam-cli.git
+cd ./shoam-cli
 export SHOAM_DIR=$(pwd) 
 ```
 
-Add SHOAM_DIR to your zshrc/bashrc for shoam to persist.
+Add SHOAM_DIR to your zshrc/bashrc for shoam-cli to persist.
 
 ## Features
 
@@ -62,11 +62,11 @@ Mostly linux command line utilities, and some Go packages.
 
 You can always use the built in helper to read about the different options.
 ```
-$ shoam -h
+$ shoam-cli -h
 BIU courses cli tool for the savvy student
 
 Usage:
-  shoam [command]
+  shoam-cli [command]
 
 Available Commands:
   calc        calculates total credit points for a list of courses
@@ -77,16 +77,16 @@ Available Commands:
   search      Searching for a course using a string pattern
 
 Flags:
-  -h, --help   help for shoam
+  -h, --help   help for shoam-cli
 
-Use "shoam [command] --help" for more information about a command.
+Use "shoam-cli [command] --help" for more information about a command.
 ```
 
 
 ### db
 
 ```
-shoam db create
+shoam-cli db create
 ```
 
 this command will fetch the courses information from the Shoam system,
@@ -102,7 +102,7 @@ Explanation on how db create works is at the end of the readme. [click here](#no
 
 * find all courses that have "calc" in their names.
 ```
-$ shoam search "calc"
+$ shoam-cli search "calc"
 89118     Introduction to Calculus I
 89133     Calculus II
 89218     Introduction to Calculus II
@@ -111,7 +111,7 @@ $ shoam search "calc"
 * Can't remember if algo 1 is 89220 or 89226? search using only a part of the code. 
 
 ```
-$ shoam search 8922
+$ shoam-cli search 8922
 89220     Algorithms 1
 892226    Computability and Complexity
 
@@ -124,7 +124,7 @@ search is case insensitive.
 get information regarding a given course.
 
 ```
-$ shoam info 89230
+$ shoam-cli info 89230
 https://shoham.biu.ac.il/BiuCoursesViewer/ENCourseDetails.aspx?lid=764650
 Course Number
 89230-01
@@ -173,13 +173,13 @@ calculate total credit points using one of the following options:
 1. course(s) code as arguments
 
 ```
-$ shoam calc 89230 // one course
+$ shoam-cli calc 89230 // one course
 total points (1 courses): 2.50
 
-$ shoam calc 89230 89220 // multiple courses
+$ shoam-cli calc 89230 89220 // multiple courses
 total points (2 courses): 5.00
 
-$ shoam calc 89230 89220 -v // verbose output
+$ shoam-cli calc 89230 89220 -v // verbose output
 89230, Computer Architecture
 ---------------------------------------
 1.50, Lecture points
@@ -204,18 +204,18 @@ total points (2 courses): 5.00
 89220
 
 
-$ shoam calc -f /path/to/somefile 
+$ shoam-cli calc -f /path/to/somefile 
 total points (2 courses): 5.00
 
 ```
 
 3. Using pipe and stdin.
 ```
-$ echo 89230 | shoam calc
+$ echo 89230 | shoam-cli calc
 total points (1 courses): 2.50
 
 
-$ shoam calc
+$ shoam-cli calc
 89230
 ^d //signaling end of stdin input.
 total points (1 courses): 2.50

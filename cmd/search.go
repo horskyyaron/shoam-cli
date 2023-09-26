@@ -9,7 +9,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"shoam/utils"
+	"shoam-cli/utils"
 )
 
 // searchCmd represents the search command

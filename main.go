@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"os"
 
-	"shoam/cmd"
+	"shoam-cli/cmd"
 )
 
 func main() {

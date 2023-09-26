@@ -1,4 +1,4 @@
-module shoam
+module shoam-cli
 
 go 1.20
 

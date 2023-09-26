@@ -10,7 +10,7 @@ import (
 	"os/exec"
 	"sync"
 	"time"
-    "shoam/utils"
+    "shoam-cli/utils"
 
 	"github.com/spf13/cobra"
 )

@@ -14,22 +14,22 @@ import (
 
 	"github.com/spf13/cobra"
 
-	"shoam/utils"
+	"shoam-cli/utils"
 )
 
 var calcCmd = &cobra.Command{
 	Use:   "calc <courses codes...> ",
 	Short: "calculates total credit points for a list of courses",
 	Long: `Can be used in multiple ways:
-    1. shoam calc 89230 -> will return the credit for one course
-    2. shoam calc 89230 89220 -> will return the credit for two courses (add more as you wish)
-    3. shoam calc -f file -> will calculate total points for a file of a list of courses.
+    1. shoam-cli calc 89230 -> will return the credit for one course
+    2. shoam-cli calc 89230 89220 -> will return the credit for two courses (add more as you wish)
+    3. shoam-cli calc -f file -> will calculate total points for a file of a list of courses.
         3.1 each line in the file should be a course code. do NOT include group number.
         e.g.
         file:
         89230
         89220
-    4. cat file | shoam calc -> should be in the same format as in the file usage.
+    4. cat file | shoam-cli calc -> should be in the same format as in the file usage.
     `,
 	Run: func(cmd *cobra.Command, args []string) {
 		verboseFlag, err := cmd.Flags().GetBool("verbose")

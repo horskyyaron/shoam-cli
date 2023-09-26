@@ -5,7 +5,7 @@ Copyright © 2023 NAME HERE <EMAIL ADDRESS>
 import (
 	"fmt"
 	"os/exec"
-	"shoam/utils"
+	"shoam-cli/utils"
 
 	"github.com/spf13/cobra"
 )
