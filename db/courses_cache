@@ -1,5 +1,5 @@
 89005, Programming Hours
-89080, autocomplete cmd db file go.mod go.sum links main.go README.md scripts shoam tmp TODO.md utils
+89080, cmd comp db go.mod go.sum links main.go README.md scripts shoam test.db tmp TODO.md utils
 89081, Mathematica
 89099, Departmental Hours for Undergrads
 89100, Tutoring Project for First Year Students
@@ -28,9 +28,9 @@
 89256, Number Theory
 89263, General Statistics
 89264, Biostatistics
-893000, autocomplete cmd db file go.mod go.sum links main.go README.md scripts shoam tmp TODO.md utils
+893000, cmd comp db go.mod go.sum links main.go README.md scripts shoam test.db tmp TODO.md utils
 893210, Advanced system programming
-893226, autocomplete cmd db file go.mod go.sum links main.go README.md scripts shoam tmp TODO.md utils
+893226, cmd comp db go.mod go.sum links main.go README.md scripts shoam test.db tmp TODO.md utils
 893311, Programming Languages
 893312, Parallel system programming
 89333, Research Frontiers in Computer Science
@@ -67,6 +67,7 @@
 89518, Computational Geometry
 89521, Evolutionary Algorithms
 895222, Mathematical Methods for Data Science
+895223, Artificial Intelligence and Planning for Autonomous Systems
 895224, Deep Learning in Computational Biology
 895227, Sublinear-Time and Space algorithms
 895229, Characterizing human behavior using internet data
