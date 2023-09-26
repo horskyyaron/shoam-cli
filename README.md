@@ -119,7 +119,7 @@ $ shoam-cli search 8922
 
 search is case insensitive.
 
-## info
+### info
 
 get information regarding a given course.
 
@@ -166,7 +166,7 @@ See Syllabus
 
 * working on better output for this command :).
 
-## calc 
+### calc 
 
 calculate total credit points using one of the following options:
 
