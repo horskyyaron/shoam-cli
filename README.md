@@ -9,7 +9,7 @@ The process wasn't fast enough for me, thus "shoam-cli" came to be!
 * [Installation](installation)
 * [Environment variables](#environment-variables)
 * [Features](#features)
-* [Requirements](#requirements)
+* [Dependencies](#dependencies)
 * [Usage](#usage)
     * [help](#help)
     * [db](#db)
@@ -46,7 +46,7 @@ Add SHOAM_DIR to your zshrc/bashrc for shoam-cli to persist.
 * Get course info. (tests, professor, credit points etc.. as shown on the course page on the shoam system)
 * calculate credits (by Nakaz! not hours)
 
-## Requirements
+## Dependencies
 
 Mostly linux command line utilities, and some Go packages.
 
@@ -54,6 +54,7 @@ Mostly linux command line utilities, and some Go packages.
 * grep
 * awk
 * sed
+* bc
 * pup https://github.com/ericchiang/pup/tree/master
 
 ## Usage
